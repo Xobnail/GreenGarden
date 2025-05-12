@@ -5,6 +5,13 @@ namespace GreenGarden.Database;
 
 public class AppDbContext : DbContext
 {
+    public DbSet<Plant> Plants { get; set; }
+    public DbSet<Habitat> Habitats { get; set; }
+    public DbSet<PlantHabitat> PlantHabitats { get; set; }
+    public DbSet<PriceOffer> Promotions { get; set; }
+    public DbSet<Review> Reviews { get; set; }
+    public DbSet<Tag> Tags { get; set; }
+
     public AppDbContext(DbContextOptions<AppDbContext> options) : base(options) { }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)

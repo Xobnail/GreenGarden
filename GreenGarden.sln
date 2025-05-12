@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GreenGarden.Database", "Gre
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GreenGarden.Domain", "GreenGarden.Domain\GreenGarden.Domain.csproj", "{83B9137A-C25C-4D62-9F55-D3BA39211A49}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GreenGarden.Application", "GreenGarden.Application\GreenGarden.Application.csproj", "{F63E55E0-7E02-4A8C-A8C9-1879160794F9}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{83B9137A-C25C-4D62-9F55-D3BA39211A49}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{83B9137A-C25C-4D62-9F55-D3BA39211A49}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{83B9137A-C25C-4D62-9F55-D3BA39211A49}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F63E55E0-7E02-4A8C-A8C9-1879160794F9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F63E55E0-7E02-4A8C-A8C9-1879160794F9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F63E55E0-7E02-4A8C-A8C9-1879160794F9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F63E55E0-7E02-4A8C-A8C9-1879160794F9}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

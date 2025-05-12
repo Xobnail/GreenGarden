@@ -50,11 +50,20 @@ public static class MockData
             new() { Id = 5, VoterName = "Helen", Stars = 2, Comment = "Withered quickly", PlantId = 4 }
         };
 
-        plants[0].Tags = new List<Tag> { tags[0], tags[1], tags[4] };
-        plants[1].Tags = new List<Tag> { tags[1], tags[4] };
-        plants[2].Tags = new List<Tag> { tags[0], tags[2] };
-        plants[3].Tags = new List<Tag> { tags[1], tags[3] };
-        plants[4].Tags = new List<Tag> { tags[2], tags[4] };
+        var plantTags = new List<Dictionary<string, object>>
+        {
+            new() { ["PlantsId"] = 1, ["TagsId"] = 1 },
+            new() { ["PlantsId"] = 1, ["TagsId"] = 2 },
+            new() { ["PlantsId"] = 1, ["TagsId"] = 5 },
+            new() { ["PlantsId"] = 2, ["TagsId"] = 2 },
+            new() { ["PlantsId"] = 2, ["TagsId"] = 5 },
+            new() { ["PlantsId"] = 3, ["TagsId"] = 1 },
+            new() { ["PlantsId"] = 3, ["TagsId"] = 3 },
+            new() { ["PlantsId"] = 4, ["TagsId"] = 2 },
+            new() { ["PlantsId"] = 4, ["TagsId"] = 4 },
+            new() { ["PlantsId"] = 5, ["TagsId"] = 3 },
+            new() { ["PlantsId"] = 5, ["TagsId"] = 5 }
+        };
 
         var plantHabitats = new List<PlantHabitat>
         {
@@ -74,5 +83,14 @@ public static class MockData
         modelBuilder.Entity<PriceOffer>().HasData(priceOffers);
         modelBuilder.Entity<Review>().HasData(reviews);
         modelBuilder.Entity<PlantHabitat>().HasData(plantHabitats);
+
+        modelBuilder.Entity<Plant>()
+            .HasMany(p => p.Tags)
+            .WithMany(t => t.Plants)
+            .UsingEntity<Dictionary<string, object>>(
+                "PlantTag",
+                r => r.HasOne<Tag>().WithMany().HasForeignKey("TagsId"),
+                l => l.HasOne<Plant>().WithMany().HasForeignKey("PlantsId"),
+                je => je.HasData(plantTags));
     }
 }
