@@ -12,5 +12,5 @@ public class Review : Entity
 
     public int PlantId { get; set; }
 
-    public Plant Plant { get; set; }
+    public virtual Plant Plant { get; set; }
 }

@@ -6,6 +6,6 @@ public class Habitat : Entity
 {
     public string Name { get; set; }
 
-    public ICollection<Plant> Plants { get; set; }
-    public ICollection<PlantHabitat> PlantLink { get; set; }
+    public virtual ICollection<Plant> Plants { get; set; }
+    public virtual ICollection<PlantHabitat> PlantLink { get; set; }
 }

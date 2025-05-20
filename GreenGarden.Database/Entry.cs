@@ -7,7 +7,9 @@ public static class Entry
 {
     public static IServiceCollection AddDatabase(this IServiceCollection services, string connectionString)
     {
-        services.AddDbContext<AppDbContext>(options => options.UseNpgsql(connectionString));
+        services.AddDbContext<AppDbContext>(options => options
+            .UseLazyLoadingProxies()
+            .UseNpgsql(connectionString));
 
         return services;
     }
