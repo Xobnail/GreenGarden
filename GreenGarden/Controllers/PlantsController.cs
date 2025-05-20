@@ -12,4 +12,11 @@ public class PlantsController(IPlantsService plantsService) : ControllerBase
     {
         return Ok(await plantsService.GetPlantsAsync(cancellationToken));
     }
+
+    [HttpGet]
+    [Route("Test")]
+    public async Task<IActionResult> TestAsync(CancellationToken cancellationToken)
+    {
+        return Ok(await plantsService.TestAsync(cancellationToken));
+    }
 }
