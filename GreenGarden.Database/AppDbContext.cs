@@ -11,6 +11,9 @@ public class AppDbContext : DbContext
     public DbSet<PriceOffer> Promotions { get; set; }
     public DbSet<Review> Reviews { get; set; }
     public DbSet<Tag> Tags { get; set; }
+    public DbSet<Order> Orders { get; set; }
+    public DbSet<Customer> Customers { get; set; }
+    public DbSet<LineItem> LineItems { get; set; }
 
     public AppDbContext(DbContextOptions<AppDbContext> options) : base(options) { }
 
@@ -63,6 +66,31 @@ public class AppDbContext : DbContext
             entity.HasOne(r => r.Plant)
                 .WithMany(p => p.Reviews)
                 .HasForeignKey(r => r.PlantId);
+        });
+
+        modelBuilder.Entity<Customer>(entity =>
+        {
+            entity.HasKey(e => e.Id);
+        });
+
+        modelBuilder.Entity<Order>(entity =>
+        {
+            entity.HasKey(e => e.Id);
+
+            entity.HasOne(o => o.Customer)
+                .WithMany(o => o.Orders)
+                .HasForeignKey(o => o.CustomerId);
+        });
+
+        modelBuilder.Entity<LineItem>(entity =>
+        {
+            entity.HasKey(e => e.Id);
+
+            entity.HasOne(e => e.ChosenPlant);
+
+            entity.HasOne(e => e.Order)
+                .WithMany(e => e.LineItems)
+                .HasForeignKey(e => e.OrderId);
         });
 
         modelBuilder.SeedData();

@@ -16,10 +16,7 @@ public class PlantsService(AppDbContext dbContext) : IPlantsService
 
     public async Task<int> TestAsync(CancellationToken cancellationToken)
     {
-        var reviews = dbContext.Plants.FirstOrDefault();
-
-        var habitats = reviews.Habitats.ToList();
-
+        
         return 0;
     }
 }
