@@ -9,7 +9,9 @@ public static class Entry
     {
         services.AddDbContext<AppDbContext>(options => options
             .UseLazyLoadingProxies()
-            .UseNpgsql(connectionString));
+            .UseNpgsql(connectionString)
+            .EnableDetailedErrors()
+            .EnableSensitiveDataLogging());
 
         return services;
     }
