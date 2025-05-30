@@ -1,4 +1,5 @@
-﻿using GreenGarden.Domain.Entities;
+﻿using GreenGarden.Database.Configs;
+using GreenGarden.Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 
 namespace GreenGarden.Database;
@@ -26,72 +27,12 @@ public class AppDbContext : DbContext
         modelBuilder.Entity<Habitat>().ToTable("Habitats");
         modelBuilder.Entity<PlantHabitat>().ToTable("PlantsHabitats");
 
-        modelBuilder.Entity<Plant>(entity =>
-        {
-            entity.HasKey(e => e.Id);
-
-            // 1 - 1
-            entity.HasOne(d => d.Promotion)
-                .WithOne(p => p.Plant)
-                .HasForeignKey<PriceOffer>(p => p.PlantId);
-
-            // 1 - M
-            entity.HasMany(d => d.Reviews)
-                .WithOne(p => p.Plant)
-                .HasForeignKey(d => d.PlantId);
-
-            // M - M without explicit connection table
-            entity.HasMany(d => d.Tags)
-                .WithMany(t => t.Plants);
-
-            // M - M with explicit connection table
-            entity.HasMany(d => d.Habitats)
-                .WithMany(h => h.Plants)
-                .UsingEntity<PlantHabitat>();
-        });
-
-        modelBuilder.Entity<PriceOffer>(entity =>
-        {
-            entity.HasKey(e => e.Id);
-
-            entity.HasOne(p => p.Plant)
-                .WithOne(p => p.Promotion)
-                .HasForeignKey<PriceOffer>(p => p.PlantId);
-        });
-
-        modelBuilder.Entity<Review>(entity =>
-        {
-            entity.HasKey(e => e.Id);
-
-            entity.HasOne(r => r.Plant)
-                .WithMany(p => p.Reviews)
-                .HasForeignKey(r => r.PlantId);
-        });
-
-        modelBuilder.Entity<Customer>(entity =>
-        {
-            entity.HasKey(e => e.Id);
-        });
-
-        modelBuilder.Entity<Order>(entity =>
-        {
-            entity.HasKey(e => e.Id);
-
-            entity.HasOne(o => o.Customer)
-                .WithMany(o => o.Orders)
-                .HasForeignKey(o => o.CustomerId);
-        });
-
-        modelBuilder.Entity<LineItem>(entity =>
-        {
-            entity.HasKey(e => e.Id);
-
-            entity.HasOne(e => e.ChosenPlant);
-
-            entity.HasOne(e => e.Order)
-                .WithMany(e => e.LineItems)
-                .HasForeignKey(e => e.OrderId);
-        });
+        modelBuilder.ApplyConfiguration(new PlantConfig());
+        modelBuilder.ApplyConfiguration(new PriceOfferConfig());
+        modelBuilder.ApplyConfiguration(new ReviewConfig());
+        modelBuilder.ApplyConfiguration(new CustomerConfig());
+        modelBuilder.ApplyConfiguration(new OrderConfig());
+        modelBuilder.ApplyConfiguration(new LineItemConfig());
 
         modelBuilder.SeedData();
     }
