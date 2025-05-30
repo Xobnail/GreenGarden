@@ -1,6 +1,7 @@
 ﻿using GreenGarden.Database.Configs;
 using GreenGarden.Domain.Entities;
 using Microsoft.EntityFrameworkCore;
+using System.Reflection;
 
 namespace GreenGarden.Database;
 
@@ -27,12 +28,7 @@ public class AppDbContext : DbContext
         modelBuilder.Entity<Habitat>().ToTable("Habitats");
         modelBuilder.Entity<PlantHabitat>().ToTable("PlantsHabitats");
 
-        modelBuilder.ApplyConfiguration(new PlantConfig());
-        modelBuilder.ApplyConfiguration(new PriceOfferConfig());
-        modelBuilder.ApplyConfiguration(new ReviewConfig());
-        modelBuilder.ApplyConfiguration(new CustomerConfig());
-        modelBuilder.ApplyConfiguration(new OrderConfig());
-        modelBuilder.ApplyConfiguration(new LineItemConfig());
+        modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
 
         modelBuilder.SeedData();
     }
