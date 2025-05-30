@@ -9,6 +9,7 @@ public static class Entry
     public static IServiceCollection AddApplication(this IServiceCollection services)
     {
         services.AddScoped<IPlantsService, PlantsService>();
+        services.AddScoped<ICustomersService, CustomersService>();
 
         return services;
     }
